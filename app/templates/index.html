@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="nav">
+        <ul>
+        <li class="nav-item" >
+            <a class="nav-link title active" data-toggle="tab" href="#pitches"><strong>Pitches</strong> </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link title"  data-toggle="tab" href="#advertisement">Advertisement</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link title"  data-toggle="tab" href="#interview">Interview</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link title" data-toggle="tab" href="#product">Product</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link title" data-toggle="tab" href="#technology">Technology</a>
+        </li>
+    </ul>
+    </div>
+</div>
