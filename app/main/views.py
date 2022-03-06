@@ -8,4 +8,10 @@ import datetime
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    pitches = Pitch.query.all()
+    advertisement = Pitch.query.filter_by(category = 'Advertisement').all()
+    interview = Pitch.query.filter_by(category = 'Interview').all()
+    product = Pitch.query.filter_by(category = 'Product').all()
+    technology = Pitch.query.filter_by(category = 'Technology')
+    
+    return render_template('index.html', interview = interview, product = product, pitches = pitches,technology = technology, advertisement = advertisement)
