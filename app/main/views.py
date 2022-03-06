@@ -71,4 +71,18 @@ def update_profile(uname):
         return redirect(url_for('.profile', uname = user.username))
     return render_template('profile/update.html',form = form)
 
-    
+@main.route('/like/<int:id>', methods = ['POST', 'GET'])
+@login_required
+def upvote(id):
+    pitches = Upvote.get_upvotes(id)
+    user_id = f'{current_user.id}:{id}'
+    for pitch in pitches:
+        to_string = f'{pitch}'
+        if user_id == to_string:
+            return redirect(url_for('main.index', id = id))
+        else:
+            continue
+    new_vote = Upvote(user = current_user, pitch_id = id)
+    new_vote.save()
+    return redirect(url_for('main.index', id = id))
+
