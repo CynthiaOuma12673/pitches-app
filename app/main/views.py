@@ -16,6 +16,21 @@ def index():
     
     return render_template('index.html', interview = interview, product = product, pitches = pitches,technology = technology, advertisement = advertisement)
 
+@main.route('/create_new',methods = ['POST', 'GET'])
+@login_required
+def new_pitch():
+    form = PitchForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        post = form.post.data
+        category = form.category.data
+        new_pitch = Pitch(title = title, post = post, category = category, user = current_user)
+        new_pitch.save_pitch()
+        return redirect(url_for('main.index'))
+    return render_template('new_pitch.html', form = form)
+    
+
+
 @main.route('/comment/<int:pitch_id>',methods = ['POST', 'GET'])
 @login_required
 def comment(pitch_id):
