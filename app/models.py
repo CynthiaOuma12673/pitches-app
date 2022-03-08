@@ -1,7 +1,7 @@
 from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from datetime import Datetime
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -35,12 +35,12 @@ class Pitch(db.Model):
     __tablename__ = 'pitches'
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(255), nullable = False)
-    post = db.Column(db.text(), nullable = False)
-    comment = db.relationship('comment', backref = 'pitch', lazy = 'denamic')
+    post = db.Column(db.String(), nullable = False)
+    comment = db.relationship('Comment', backref = 'pitch', lazy = 'dynamic')
     upvote = db.relationship('Upvote', backref = 'pitch', lazy = 'dynamic')
     downvote = db.relationship('Downvote',backref = 'pitch', lazy = 'dynamic')
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    time = db.Column(db.Datetime, default = datetime.utcnow)
+    # time = db.Column(db.datetime, default = datetime.utcnow)
     category = db.Column(db.String(255), index = True, nullable = False)
 
     def save_pitch(self):
@@ -89,7 +89,7 @@ class Downvote(db.Model):
     def __repr__(self):
         return f'{self.user_id}:{self.pitch_id}'
 
-class = Comment(db.Model):
+class Comment(db.Model):
     __tablename__= 'comments'
     id = db.Column(db.Integer, primary_key = True)
     comment = db.Column(db.Text(), nullable = False )
@@ -106,4 +106,4 @@ class = Comment(db.Model):
         return comments
 
     def __repr__(self):
-        return f'comment:{slf.comment}'
+        return f'comment:{self.comment}'
