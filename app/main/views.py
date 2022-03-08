@@ -24,7 +24,7 @@ def new_pitch():
         title = form.title.data
         post = form.post.data
         category = form.category.data
-        new_pitch = Pitch(title = title, post = post, category = category, user = current_user)
+        new_pitch = Pitch(title = title, post = post, category = category)
         new_pitch.save_pitch()
         return redirect(url_for('main.index'))
     return render_template('new_pitch.html', form = form)
@@ -40,7 +40,7 @@ def comment(pitch_id):
     if form.validate_on_submit():
         comment = form.comment.data
         pitch_id = pitch_id
-        new_comment = Comment(comment = comment, pitch_id = pitch_id, user = current_user)
+        new_comment = Comment(comment = comment, pitch_id = pitch_id)
         new_comment.save_comment()
         return redirect(url_for('.comment', pitch_id = pitch_id))
     return render_template('comment.html', form = form, pitch = pitch, comments = comments)
@@ -48,17 +48,17 @@ def comment(pitch_id):
 @main.route('/user/<uname>')
 @login_required
 def profile(uname):
-    uer = User.query.filter_by(username = uname).first()
+    user = User.query.filter_by(username = uname).first()
     posts = Pitch.query.filter_by(user = current_user).all()
     if user in None:
         abort(404)
 
-    return render_template ('profile/profile.html', user = user, posts = posts)
+    return render_template ('profile/profile.html', user = User, posts = posts)
 
 @main.route('/user/<uname>/update',methods = ['GET', 'POST'])
 @login_required
 def update_profile(uname):
-    user = user.query.filter_by(username = uname).first()
+    user = User.query.filter_by(username = uname).first()
     if user is None:
         abort(404)
 

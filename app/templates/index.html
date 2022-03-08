@@ -1,5 +1,5 @@
 {% extends 'base.html'%}
-{% import 'macros.html' as macro%}
+{% import 'macros.html' as macro %}
 
 {% block styles%}
     {{ super() }}
@@ -8,9 +8,9 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="nav">
-        <ul>
+<div class="container-fluid">
+    <!-- <div class="nav">
+        <ul class="cat">
         <li class="nav-item" >
             <a class="nav-link title active" data-toggle="tab" href="#pitches"><strong>Pitches</strong> </a>
         </li>
@@ -27,8 +27,8 @@
             <a class="nav-link title" data-toggle="tab" href="#technology">Technology</a>
         </li>
     </ul>
-    </div>
-    <div class="content">
+    </div> -->
+    <div class="container content">
         <div  class="container active" id="pitches"><br>
             {{ macro.display(pitches) }}
         </div>
